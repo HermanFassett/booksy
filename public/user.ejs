@@ -1,0 +1,20 @@
+<!DOCTYPE>
+<html>
+<head>
+  <% include /partials/head %>
+  <title>suptonight - <%-name%></title>
+</head>
+<body>
+  <% include /partials/header %>
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="animated rotateInDownLeft"><%=name%></h1>
+    </div>
+    <img src="<%=img%>"class="avatar">
+  </div>
+  <div class="container">
+    <% include /partials/footer %>
+  </div>
+  <% include /partials/scripts %>
+</body>
+</html>
