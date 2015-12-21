@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var UserHandler = require(path + '/app/controllers/userHandler.server.js');
+var SearchHandler = require(path + '/app/controllers/searchHandler.js');
 
 module.exports = function (app, passport) {
 
@@ -18,7 +19,9 @@ module.exports = function (app, passport) {
 		}
 	}
 
+	// Instantiate handlers
 	var userHandler = new UserHandler();
+	var searchHandler = new SearchHandler();
 
 	// Home page
 	app.route('/').get(function (req, res) {
@@ -34,6 +37,7 @@ module.exports = function (app, passport) {
 	app.route('/signup').get(function (req, res) {
 		res.render(path + '/public/signup.ejs');
 	}).post(userHandler.postSignup);
+
 	// Logout
 	app.route('/logout').get(function (req, res) {
 		req.logout();
@@ -42,12 +46,14 @@ module.exports = function (app, passport) {
 
 	// Get a user
 	app.route('/user/:name').get(userHandler.getUser);
+	app.route('/profile').get(userHandler.getUser);
 
 	// Logged in user
 	app.route('/api/:id').get(isLoggedIn, function (req, res) {
 		res.json(req.user);
 	});
 
+	app.route('/search').get(searchHandler.getSearch);
 	//Google auth
 	app.route('/auth/google').get(passport.authenticate('google', {scope: 'profile email'}));
 	app.route('/auth/google/callback').get(passport.authenticate('google',

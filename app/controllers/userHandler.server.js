@@ -1,4 +1,3 @@
-'use strict';
 var Users = require('../models/users.js');
 var passport = require('passport');
 var crypto = require('crypto');
@@ -7,7 +6,9 @@ var path = process.cwd();
 function UserHandler () {
 	var apiUrl = path + '/api/:id';
 	this.getUser = function (req, res) {
-		Users.findOne({ 'profile.name' : req.params.name }, function(err, result) {
+		var name = req.params.name;
+		if (!req.params.name) name = req.user.profile.name;
+		Users.findOne({ 'profile.name' : name }, function(err, result) {
 			res.render(path + '/public/user.ejs', {
 				name: result.profile.name,
 				img: result.profile.picture
