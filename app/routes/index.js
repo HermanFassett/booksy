@@ -46,9 +46,7 @@ module.exports = function (app, passport) {
 	});
 
 	// Search by location
-	app.route('/search').get(function(req, res) {
-		res.render(path + "/public/search.ejs", {businesses:null});
-	}).post(searchHandler.postSearch);
+	app.route('/search').get(searchHandler.getSearch).post(searchHandler.postSearch);
 
 	// See who's going and add yourself as going
 	app.route('/search/:index/:id').get(searchHandler.getGoing);

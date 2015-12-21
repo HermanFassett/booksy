@@ -8,6 +8,7 @@ var userSchema = new mongoose.Schema({
   password: String,
   google: String,
   tokens: Array,
+  location: String,
   profile: {
     name: { type: String, default: '' },
     picture: { type: String, default: '' }

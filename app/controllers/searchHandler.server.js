@@ -12,9 +12,17 @@ function SearchHandler () {
 	};
 	var yelp = new Yelp(options);
 
+	this.getSearch = function(req, res) {
+		var location = (req.user) ? req.user.location : null;
+		res.render(path + "/public/search.ejs", {businesses: null, location: location});
+	};
+
 	this.postSearch = function (req, res) {
 		yelp.search({ term: 'bar', location: req.body.location })
 		.then(function (data) {
+			if (req.user) {
+				Users.update({"profile.name":req.user.profile.name},{location:req.body.location},{upsert: true},function(e, r){});
+			}
 			var businesses = [];
 			Going.findOne({}, function (err, result) {
 				if (err) throw err;
@@ -25,7 +33,7 @@ function SearchHandler () {
 					businesses.push(data.businesses[i]);
 				}
 				res.render(path + '/public/search.ejs', {
-					businesses: businesses
+					businesses: businesses, location: null
 				});
 			});
 		})

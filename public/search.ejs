@@ -9,12 +9,18 @@
   <span class="fa fa-spinner fa-spin fa-5x spinner" id="spinner"></span>
   <div class="container">
     <div class="jumbotron animated fadeIn">
-      <form class="form-inline text-center" action="" method="post">
+      <form class="form-inline text-center" action="" method="post" id="form-loc">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Enter Location..." name="location">
-          <input type="submit" class="btn btn-success" value="Search">
+          <input type="text" class="form-control" placeholder="Enter Location..." name="location" id="txt-loc">
+          <input type="submit" class="btn btn-success" value="Search" id="search-btn">
         </div>
       </form>
+      <script>
+      if ("<%=location%>" != "null") {
+        document.getElementById("txt-loc").value = "<%=location%>";
+        document.getElementById("form-loc").submit();
+      }
+      </script>
       <% if (businesses) { %>
         <% for (var i in businesses) { %>
           <div class="place row">
