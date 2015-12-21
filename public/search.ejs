@@ -20,7 +20,12 @@
             <div class="col-md-3">
                 <img src="<%=businesses[i].rating_img_url%>" class="place-rating">
                 <img src="<%=businesses[i].image_url%>" class="place-img">
-                <h4>1 people going</h4>
+                <% if (businesses[i].people_going == 1) { %>
+                  <h4>1 person going</h4>
+                <% } %>
+                <% if (businesses[i].people_going != 1){ %>
+                  <h4><%=businesses[i].people_going%> people going</h4>
+                <% } %>
             </div>
             <div class="col-md-9">
               <h4><a href="<%=businesses[i].url%>"><%=businesses[i].name%></a></h4>

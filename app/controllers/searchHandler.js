@@ -15,7 +15,7 @@ function SearchHandler () {
 		.then(function (data) {
 			var businesses = [];
 			for (var i in data.businesses) {
-				data.businesses[i].people_going = 1;
+				data.businesses[i].people_going = Math.floor(Math.random() * 10);
 				businesses.push(data.businesses[i]);
 			}
 			res.render(path + '/public/search.ejs', {
