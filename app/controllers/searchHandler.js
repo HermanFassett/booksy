@@ -11,7 +11,7 @@ function SearchHandler () {
 	};
 	var yelp = new Yelp(options);
 	this.postSearch = function (req, res) {
-		yelp.search({ term: 'food', location: req.body.location })
+		yelp.search({ term: 'bar', location: req.body.location })
 		.then(function (data) {
 			res.render(path + '/public/search.ejs', {
 				items: data
