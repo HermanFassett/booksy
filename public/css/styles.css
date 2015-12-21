@@ -15,18 +15,20 @@
   background: white;
   border-radius: 5px;
   padding: 15px;
+  vertical-align: top;
 }
 .place-img {
-  position: relative;
-  float: left;
+  display: block;
   border-radius: 5px;
+  margin-bottom: 10.5px;
 }
 .place-rating {
-  margin-bottom: 10px;
+  margin: 10.5px 0px 10px 7px;
 }
 .place-rating-img {
-  float: left;
   width: 25px;
-  float:right;
   border-radius: 5px;
+}
+.col-md-3 {
+  max-width: 150px;
 }
