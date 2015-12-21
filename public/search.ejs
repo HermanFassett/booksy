@@ -21,10 +21,10 @@
                 <img src="<%=businesses[i].rating_img_url%>" class="place-rating">
                 <img src="<%=businesses[i].image_url%>" class="place-img">
                 <% if (businesses[i].people_going == 1) { %>
-                  <h4>1 person going</h4>
+                  <h4 class="txt-going">1 person going</h4>
                 <% } %>
                 <% if (businesses[i].people_going != 1){ %>
-                  <h4><%=businesses[i].people_going%> people going</h4>
+                  <h4 class="txt-going"><%=businesses[i].people_going%> people going</h4>
                 <% } %>
             </div>
             <div class="col-md-9">
@@ -33,6 +33,8 @@
                 <%=businesses[i].snippet_text%>
                 <img src="<%=businesses[i].snippet_image_url%>" class="place-rating-img">
               </blockquote>
+              <input type="button" class="btn btn-default btn-going" value="I'm Going!">
+              <input type="hidden" class="hidden-going" value="<%=businesses[i].id%>">
             </div>
           </div>
           <hr>
@@ -44,5 +46,6 @@
     <% include /partials/footer %>
   </div>
   <% include /partials/scripts %>
+  <script src="/controllers/searchController.client.js"></script>
 </body>
 </html>

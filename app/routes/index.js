@@ -2,7 +2,7 @@
 
 var path = process.cwd();
 var UserHandler = require(path + '/app/controllers/userHandler.server.js');
-var SearchHandler = require(path + '/app/controllers/searchHandler.js');
+var SearchHandler = require(path + '/app/controllers/searchHandler.server.js');
 
 module.exports = function (app, passport) {
 
@@ -53,9 +53,14 @@ module.exports = function (app, passport) {
 		res.json(req.user);
 	});
 
+	// Search by location
 	app.route('/search').get(function(req, res) {
 		res.render(path + "/public/search.ejs", {businesses:null});
 	}).post(searchHandler.postSearch);
+
+	// See who's going and add yourself as going
+	app.route('/search/:index/:id').get(searchHandler.getGoing).post(searchHandler.addGoing);
+
 	//Google auth
 	app.route('/auth/google').get(passport.authenticate('google', {scope: 'profile email'}));
 	app.route('/auth/google/callback').get(passport.authenticate('google',
