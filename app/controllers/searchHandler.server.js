@@ -16,12 +16,17 @@ function SearchHandler () {
 		yelp.search({ term: 'bar', location: req.body.location })
 		.then(function (data) {
 			var businesses = [];
-			for (var i in data.businesses) {
-				data.businesses[i].people_going = Math.floor(Math.random() * 10);
-				businesses.push(data.businesses[i]);
-			}
-			res.render(path + '/public/search.ejs', {
-				businesses: businesses
+			Going.findOne({}, function (err, result) {
+				if (err) throw err;
+				for (var i in data.businesses) {
+					var amount = 0, going_index = result.going.indexOf(data.businesses[i].id);
+					if (going_index != -1) amount = result.amount[going_index];
+					data.businesses[i].people_going = amount;
+					businesses.push(data.businesses[i]);
+				}
+				res.render(path + '/public/search.ejs', {
+					businesses: businesses
+				});
 			});
 		})
 		.catch(function (err) {
@@ -34,7 +39,7 @@ function SearchHandler () {
 			if (err) throw err;
 			var goingHidden = req.params.id, index = req.params.index;
 			var going_index = result.going.indexOf(goingHidden);
-			if (going_index != -1) res.json({amount: result.amount[going_index], index: index - 1});
+			if (going_index != -1) res.json({amount: result.amount[going_index], index: index});
 			else res.json(0);
 		});
 	};
