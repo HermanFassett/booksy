@@ -14,13 +14,13 @@
           <input type="submit" class="btn btn-success" value="Search">
         </div>
       </form>
-      <% if (items) { %>
-        <% var businesses = items.businesses %>
+      <% if (businesses) { %>
         <% for (var i in businesses) { %>
           <div class="place row">
             <div class="col-md-3">
                 <img src="<%=businesses[i].rating_img_url%>" class="place-rating">
                 <img src="<%=businesses[i].image_url%>" class="place-img">
+                <h4>1 people going</h4>
             </div>
             <div class="col-md-9">
               <h4><a href="<%=businesses[i].url%>"><%=businesses[i].name%></a></h4>

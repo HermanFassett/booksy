@@ -54,7 +54,7 @@ module.exports = function (app, passport) {
 	});
 
 	app.route('/search').get(function(req, res) {
-		res.render(path + "/public/search.ejs", {items:null});
+		res.render(path + "/public/search.ejs", {businesses:null});
 	}).post(searchHandler.postSearch);
 	//Google auth
 	app.route('/auth/google').get(passport.authenticate('google', {scope: 'profile email'}));

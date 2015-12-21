@@ -13,8 +13,13 @@ function SearchHandler () {
 	this.postSearch = function (req, res) {
 		yelp.search({ term: 'bar', location: req.body.location })
 		.then(function (data) {
+			var businesses = [];
+			for (var i in data.businesses) {
+				data.businesses[i].people_going = 1;
+				businesses.push(data.businesses[i]);
+			}
 			res.render(path + '/public/search.ejs', {
-				items: data
+				businesses: businesses
 			});
 		})
 		.catch(function (err) {
