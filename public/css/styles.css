@@ -1,9 +1,3 @@
-.well {
-  padding: 0px 15px 0px 15px;
-  max-height: 500px;
-  overflow-y: auto;
-  background: black;
-}
 .avatar {
   width: 200px;
   border-radius: 5px;
@@ -16,4 +10,23 @@
   position:relative;
   left: 50%;
   transform: translateX(-50%);
+}
+.place {
+  background: white;
+  border-radius: 5px;
+  padding: 15px;
+}
+.place-img {
+  position: relative;
+  float: left;
+  border-radius: 5px;
+}
+.place-rating {
+  margin-bottom: 10px;
+}
+.place-rating-img {
+  float: left;
+  width: 25px;
+  float:right;
+  border-radius: 5px;
 }

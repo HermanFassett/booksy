@@ -1,0 +1,43 @@
+<!DOCTYPE>
+<html>
+<head>
+  <% include /partials/head %>
+  <title>Suptonight - Search</title>
+</head>
+<body>
+  <% include /partials/header %>
+  <div class="container">
+    <div class="jumbotron animated fadeIn">
+      <form class="form-inline text-center" action="" method="post">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Enter Location..." name="location">
+          <input type="submit" class="btn btn-success" value="Search">
+        </div>
+      </form>
+      <% if (items) { %>
+        <% var businesses = items.businesses %>
+        <% for (var i in businesses) { %>
+          <div class="place row">
+            <div class="col-md-3">
+              <img src="<%=businesses[i].rating_img_url%>" class="place-rating">
+              <img src="<%=businesses[i].image_url%>" class="place-img">
+            </div>
+            <div class="col-md-9">
+              <h4><a href="<%=businesses[i].url%>"><%=businesses[i].name%></a></h4>
+              <blockquote>
+                <%=businesses[i].snippet_text%>
+                <img src="<%=businesses[i].snippet_image_url%>" class="place-rating-img">
+              </blockquote>
+            </div>
+          </div>
+          <hr>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+  <div class="container">
+    <% include /partials/footer %>
+  </div>
+  <% include /partials/scripts %>
+</body>
+</html>

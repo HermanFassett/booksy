@@ -53,7 +53,9 @@ module.exports = function (app, passport) {
 		res.json(req.user);
 	});
 
-	app.route('/search').get(searchHandler.getSearch);
+	app.route('/search').get(function(req, res) {
+		res.render(path + "/public/search.ejs", {items:null});
+	}).post(searchHandler.postSearch);
 	//Google auth
 	app.route('/auth/google').get(passport.authenticate('google', {scope: 'profile email'}));
 	app.route('/auth/google/callback').get(passport.authenticate('google',
