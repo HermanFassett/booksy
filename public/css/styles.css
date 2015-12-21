@@ -12,3 +12,8 @@
   width: 20px;
   border: 1px solid green;
 }
+.center {
+  position:relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
