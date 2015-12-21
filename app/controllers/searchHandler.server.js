@@ -35,6 +35,12 @@ function SearchHandler () {
 	};
 
 	this.getGoing = function(req, res) {
+		if (!req.user) {
+			res.contentType('application/json');
+			var data = JSON.stringify('/login')
+			res.header('Content-Length', data.length);
+			return res.end(data);
+		}
 		Going.findOne({}, function (err, result) {
 			if (err) throw err;
 			var goingHidden = req.params.id, index = req.params.index;
