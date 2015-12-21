@@ -16,7 +16,7 @@
         </div>
       </form>
       <script>
-      if ("<%=location%>" != "null") {
+      if ("<%=location%>" != "null" && "<%=location%>" != "undefined") {
         document.getElementById("txt-loc").value = "<%=location%>";
         document.getElementById("form-loc").submit();
       }
