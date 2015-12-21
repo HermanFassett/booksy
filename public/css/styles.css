@@ -1,6 +1,7 @@
 .avatar {
   width: 200px;
   border-radius: 5px;
+  float: left;
 }
 #avatar-sm {
   width: 20px;

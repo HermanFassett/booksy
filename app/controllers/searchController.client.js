@@ -5,11 +5,9 @@
    var apiUrl = window.location.href;
    $("#spinner").hide();
    function updateGoing(data) {
-     console.log(data);
      var going = JSON.parse(data);
-     console.log(going);
      if (going === "/login") window.location = going;
-     else $(goingText[going.index]).text(going.amount + " people going");
+     else $(goingText[going.index]).text(going.amount + ((going.amount === 1) ? " person going" : " people going"));
      $.getJSON("/active/" + going.index + "/" + $(goingHidden[going.index]).val(), function(data) {
        $("#spinner").show();
        if (data.result) {
