@@ -52,13 +52,34 @@ function SearchHandler () {
 			var going_index = result.going.indexOf(goingHidden);
 			if (going_index != -1) {
 				var update = {};
-				update["amount." + going_index] = 1;
+				update["amount." + going_index] = req.params.amount;
 				Going.findOneAndUpdate({}, { $inc: update}, function(e, r) {});
 			}
 			else
 				Going.findOneAndUpdate({}, { $push: { going: goingHidden, amount: 1 }}, function(e, r) {})
-			res.end();
+			Users.findOne({"profile.name": req.user.profile.name}, function(err, user) {
+				if (user.going.indexOf(goingHidden) == -1) {
+					Users.findOneAndUpdate({"profile.name": req.user.profile.name}, {$push: {going: goingHidden}}, function(e, r) {
+						res.end();
+					});
+				}
+				else if (req.params.amount == -1) {
+					Users.findOneAndUpdate({"profile.name": req.user.profile.name}, {$pull: {going: goingHidden}}, function(e, r) {
+						res.end();
+					});
+				}
+				else res.end();
+			});
 		});
+	};
+
+	this.getSet = function(req, res) {
+		if (req.user) {
+			Users.findOne({"profile.name": req.user.profile.name}, function(err, user) {
+				res.json({result: user.going.indexOf(req.params.id) !== -1, index: req.params.index});
+			});
+		}
+		else res.json({result: false});
 	};
 }
 module.exports = SearchHandler;

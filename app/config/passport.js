@@ -49,11 +49,10 @@ module.exports = function (passport) {
         } else {
           var user = new User();
           user.email = profile.emails[0].value;
-					user.joinDate = new Date();
           user.google = profile.id;
           user.tokens.push({ kind: 'google', accessToken: accessToken });
           user.profile.name = profile.displayName;
-          user.profile.gender = profile._json.gender;
+          user.going = [];
           user.profile.picture = profile._json.image.url;
           user.save(function(err) {
             done(err, user);

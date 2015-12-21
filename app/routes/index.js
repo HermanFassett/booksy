@@ -59,7 +59,9 @@ module.exports = function (app, passport) {
 	}).post(searchHandler.postSearch);
 
 	// See who's going and add yourself as going
-	app.route('/search/:index/:id').get(searchHandler.getGoing).post(searchHandler.addGoing);
+	app.route('/search/:index/:id').get(searchHandler.getGoing);
+	app.route('/search/:index/:id/:amount').post(isLoggedIn, searchHandler.addGoing);
+	app.route('/active/:index/:id').get(searchHandler.getSet);
 
 	//Google auth
 	app.route('/auth/google').get(passport.authenticate('google', {scope: 'profile email'}));
