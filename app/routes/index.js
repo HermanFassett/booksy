@@ -2,7 +2,7 @@
 
 var path = process.cwd();
 var UserHandler = require(path + '/app/controllers/userHandler.server.js');
-var SearchHandler = require(path + '/app/controllers/searchHandler.server.js');
+var BookHandler = require(path + '/app/controllers/bookHandler.server.js');
 
 module.exports = function (app, passport) {
 
@@ -13,7 +13,7 @@ module.exports = function (app, passport) {
 
 	// Instantiate handlers
 	var userHandler = new UserHandler();
-	var searchHandler = new SearchHandler();
+	var bookHandler = new BookHandler();
 
 	// Home page
 	app.route('/').get(function (req, res) {
@@ -40,6 +40,8 @@ module.exports = function (app, passport) {
 	app.route('/user/:name').get(userHandler.getUser);
 	app.route('/profile').get(userHandler.getUser);
 
+	// View books
+	app.route('/books').get(bookHandler.getBooks);
 	// Logged in user
 	app.route('/api/:id').get(isLoggedIn, function (req, res) {
 		res.json(req.user);

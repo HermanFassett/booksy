@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html>
+<head>
+  <% include /partials/head %>
+  <title>Booksy - View Books</title>
+</head>
+<body>
+  <% include /partials/header %>
+  <span class="fa fa-spinner fa-spin fa-5x spinner" id="spinner"></span>
+  <div class="container">
+    <div class="jumbotron animated fadeIn">
+      <form class="form-inline text-center" action="" method="post" id="form-loc">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search Books..." name="location" id="txt-loc">
+          <input type="submit" class="btn btn-success" value="Search" id="search-btn">
+        </div>
+      </form>
+      <% if (books) { %>
+        <% for (var i in books) { %>
+          <div class="place row">
+            <% i %>
+          </div>
+          <hr>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+  <div class="container">
+    <% include /partials/footer %>
+  </div>
+  <% include /partials/scripts %>
+  <script src="/controllers/bookController.client.js"></script>
+</body>
+</html>
