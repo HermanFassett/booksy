@@ -1,3 +1,3 @@
-# suptonight
-A Nightlife Coordination App
+# booksy
+A Book Trading App
 by Herman Fassett

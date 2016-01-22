@@ -1,9 +1,9 @@
 {
-  "name": "suptonight",
+  "name": "booksy",
   "version": "1.0.1",
-  "description": "Nightlife Coordination App",
+  "description": "Book Trading App",
   "main": "server.js",
-  "homepage": "http://www.brainboost.xyz/",
+  "homepage": "http://www.booksy.herokuapp.com",
   "keywords": [
     "MongoDB",
     "Mongoose",
@@ -28,7 +28,6 @@
     "passport": "^0.3.0",
     "passport-google-oauth": "^0.2.0",
     "passport-local": "^1.0.0",
-    "passport-oauth": "^1.0.0",
-    "yelp": "^1.0.1"
+    "passport-oauth": "^1.0.0"
   }
 }
