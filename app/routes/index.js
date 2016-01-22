@@ -42,6 +42,10 @@ module.exports = function (app, passport) {
 
 	// View books
 	app.route('/books').get(bookHandler.getBooks);
+
+	// Add books
+	app.route('/add').get(bookHandler.addBooks).post(bookHandler.addBook);
+
 	// Logged in user
 	app.route('/api/:id').get(isLoggedIn, function (req, res) {
 		res.json(req.user);

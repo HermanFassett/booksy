@@ -1,0 +1,24 @@
+<!DOCTYPE>
+<html>
+<head>
+  <% include /partials/head %>
+  <title>Booksy - Add Books</title>
+</head>
+<body>
+  <% include /partials/header %>
+  <div class="container">
+    <div class="jumbotron animated fadeIn">
+      <form class="form-inline text-center" action="" method="post" id="form-loc">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Book Title/ISBN..." name="book" id="txt-loc">
+          <input type="submit" class="btn btn-success" value="Add Book" id="search-btn">
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="container">
+    <% include /partials/footer %>
+  </div>
+  <% include /partials/scripts %>
+</body>
+</html>
