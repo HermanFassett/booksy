@@ -13,8 +13,17 @@
           <input type="text" class="form-control" placeholder="Book Title/ISBN..." name="book" id="add-txt">
           <input type="submit" class="btn btn-success" value="Add Book" id="add-btn">
         </div>
-      </form?=>
+      </form>
     </div>
+    <% if (books) { %>
+      <% for (var i = 0; i < books.length; i++) { %>
+        <div class="book">
+          <h1><%=books[i].title%></h1>
+          <img src='<%=books[i].image_url%>' class="center"/>
+          <h2><%=books[i].author%>
+        </div>
+      <% } %>
+    <% } %>
   </div>
   <div class="container">
     <% include /partials/footer %>
