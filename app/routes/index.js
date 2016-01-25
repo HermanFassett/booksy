@@ -41,7 +41,7 @@ module.exports = function (app, passport) {
 	app.route('/profile').get(userHandler.getUser);
 
 	// View books
-	app.route('/books').get(bookHandler.getBooks);
+	app.route('/books').get(bookHandler.getBooks).post(bookHandler.getBooks);
 
 	// Add books
 	app.route('/add').get(bookHandler.addBooks).post(bookHandler.addBook);

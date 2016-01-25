@@ -7,16 +7,18 @@ var path = process.cwd();
 function BookHandler () {
 	this.getBooks = function(req, res) {
 		Books.find({}, function(err, data) {
+			var search = req.body.search || "";
 			var books = (data[0].books.length > 0) ? data[0].books : [];
+			books = books.filter(function(val) {
+				var regex = new RegExp(search, "gi")
+				return val.title.match(regex) || val.author.match(regex);
+			});
 			res.render(path + "/public/books.ejs", {books: books});
 		})
 	}
 	this.addBooks = function(req, res) {
 		if (!req.user) {
-			res.contentType('application/json');
-			var data = JSON.stringify('/login')
-			res.header('Content-Length', data.length);
-			return res.end(data);
+			res.redirect("/login");
 		}
 		Users.findOne({"profile.name": req.user.profile.name}, function(err, data) {
 			res.render(path + "/public/add.ejs", {books:data.books});
