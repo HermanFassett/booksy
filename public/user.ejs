@@ -24,8 +24,8 @@
         <h1>Trade Requests!</h1>
         <% for (var i = 0; i < requests.length; i++) { %>
           <div class="row">User <a href="/user/<%=requests[i].requester%>"><%=requests[i].requester%></a> wants to trade for <%=requests[i].title%>
-            <a href="/accept" class="btn btn-success">Accept</a>
-            <a href="/decline" class="btn btn-danger">Decline</a>
+            <a href="/profile/accept/<%=encodeURIComponent(JSON.stringify(requests[i]))%>" class="btn btn-success">Accept</a>
+            <a href="/profile/decline/<%=encodeURIComponent(JSON.stringify(requests[i]))%>" class="btn btn-danger">Decline</a>
           </div>
         <% } %>
       <% } %>
@@ -51,6 +51,10 @@
             <img src='<%=trade[i].image_url%>' class="center"/>
             <h2><%=trade[i].author%></h2>
             <h2>Owned by <a href="/user/<%=trade[i].owner%>"><%=trade[i].owner%></a></h2>
+            <% if (trade[i].accepted) { %>
+              <h2 class="text-success">Accepted!</h2>
+            <% } %>
+            <%=trade[i].accepted%>
           </div>
         <% } %>
       <% } %>

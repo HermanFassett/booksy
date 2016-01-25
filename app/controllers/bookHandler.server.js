@@ -94,7 +94,7 @@ function BookHandler () {
 			});
 		}
 		else {
-			var url = "https://www.goodreads.com/search/index.xml";
+			var url = "http://www.goodreads.com/search/index.xml";
 			var params = "?key="+process.env.GR_KEY+"&q="+book;
 			request(url+params, function (error, response, body) {
 			  if (!error && response.statusCode == 200) {
@@ -118,7 +118,7 @@ function BookHandler () {
 						});
 					});
 			  }
-				else res.json(error)
+				else res.json({"error":error});
 			});
 		}
 	}

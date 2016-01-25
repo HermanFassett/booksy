@@ -5,6 +5,7 @@ var path = process.cwd();
 
 function UserHandler () {
 	var apiUrl = path + '/api/:id';
+	// Get a user or profile
 	this.getUser = function (req, res) {
 		var button = false, name = req.params.name;
 		if (!req.params.name) {
@@ -23,6 +24,7 @@ function UserHandler () {
 			});
 		});
 	};
+	// Login
 	this.postLogin = function(req, res, next) {
 	  passport.authenticate('local', function(err, user, info) {
 	    if (err) {
@@ -40,6 +42,7 @@ function UserHandler () {
 	    });
 	  })(req, res, next);
 	};
+	// Signup
 	this.postSignup = function(req, res, next) {
 		var md5 = crypto.createHash('md5').update(req.body.email).digest('hex');
 	  var img = 'https://gravatar.com/avatar/' + md5 + '&d=retro';
@@ -52,7 +55,6 @@ function UserHandler () {
 	    password: req.body.password,
 			going: []
 	  });
-
 	  Users.findOne({ email: req.body.email }, function(err, existingUser) {
 	    if (existingUser) {
 	      console.log('Account with that email address already exists.');
@@ -71,6 +73,7 @@ function UserHandler () {
 	    });
 	  });
 	};
+	// Change settings
 	this.changeSettings = function(req, res) {
 		if (!req.user) {
 			res.contentType('application/json');
@@ -84,6 +87,54 @@ function UserHandler () {
 				res.redirect("/profile");
 			}
 		);
+	}
+	// Accept a trade ... sort of
+	this.acceptTrade = function(req, res) {
+		if (!req.user) {
+			res.redirect("/login")
+		}
+		var request = JSON.parse(req.params.i);
+		Users.findOne({"profile.name": request.requester}, function(err, data) {
+			var book = data.trade.map(function(b) {
+				return b.title+b.owner
+			}).indexOf(request.title+req.user.profile.name);
+			var books = data.trade.splice(book, 1);
+			Users.findOneAndUpdate({"profile.name": request.requester}, {$set: {trade: data.trade}}, function(er, lib) {
+				Users.findOne({"profile.name": req.user.profile.name}, function(e, d) {
+					var book = d.requests.map(function(b) {
+						return b.title+b.requester
+					}).indexOf(req.title+req.requester);
+					var books = d.requests.splice(book, 1);
+					Users.findOneAndUpdate({"profile.name": req.user.profile.name}, {$set: {requests: d.requests}}, function(e, l) {
+						res.redirect("/profile");
+					});
+				});
+			});
+		});
+	}
+	// Decline a trade
+	this.declineTrade = function(req, res) {
+		if (!req.user) {
+			res.redirect("/login")
+		}
+		var request = JSON.parse(req.params.i);
+		Users.findOne({"profile.name": request.requester}, function(err, data) {
+			var book = data.trade.map(function(b) {
+				return b.title+b.owner
+			}).indexOf(request.title+req.user.profile.name);
+			var books = data.trade.splice(book, 1);
+			Users.findOneAndUpdate({"profile.name": request.requester}, {$set: {trade: data.trade}}, function(er, lib) {
+				Users.findOne({"profile.name": req.user.profile.name}, function(e, d) {
+					var book = d.requests.map(function(b) {
+						return b.title+b.requester
+					}).indexOf(req.title+req.requester);
+					var books = d.requests.splice(book, 1);
+					Users.findOneAndUpdate({"profile.name": req.user.profile.name}, {$set: {requests: d.requests}}, function(e, l) {
+						res.redirect("/profile");
+					});
+				});
+			});
+		});
 	}
 }
 module.exports = UserHandler;
