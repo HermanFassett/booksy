@@ -103,7 +103,7 @@ function UserHandler () {
 				Users.findOne({"profile.name": req.user.profile.name}, function(e, d) {
 					var book = d.requests.map(function(b) {
 						return b.title+b.requester
-					}).indexOf(req.title+req.requester);
+					}).indexOf(request.title+request.requester);
 					var books = d.requests.splice(book, 1);
 					Users.findOneAndUpdate({"profile.name": req.user.profile.name}, {$set: {requests: d.requests}}, function(e, l) {
 						res.redirect("/profile");
@@ -127,7 +127,7 @@ function UserHandler () {
 				Users.findOne({"profile.name": req.user.profile.name}, function(e, d) {
 					var book = d.requests.map(function(b) {
 						return b.title+b.requester
-					}).indexOf(req.title+req.requester);
+					}).indexOf(request.title+request.requester);
 					var books = d.requests.splice(book, 1);
 					Users.findOneAndUpdate({"profile.name": req.user.profile.name}, {$set: {requests: d.requests}}, function(e, l) {
 						res.redirect("/profile");
