@@ -1,5 +1,5 @@
 (function () {
-  //var apiUrl = window.location.href;
+  var apiUrl = window.location.href;
   $("#spinner").hide();
   function update(data) {
      var going = JSON.parse(data);

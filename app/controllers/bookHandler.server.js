@@ -25,12 +25,12 @@ function BookHandler () {
 		});
 	}
 	this.addBook = function(req, res) {
-		if (!req.user) {
-			res.contentType('application/json');
-			var data = JSON.stringify('/login')
-			res.header('Content-Length', data.length);
-			return res.end(data);
-		}
+		// if (!req.user) {
+		// 	res.contentType('application/json');
+		// 	var data = JSON.stringify('/login')
+		// 	res.header('Content-Length', data.length);
+		// 	return res.end(data);
+		// }
 		var book = req.body.book;
 		var url = "https://www.goodreads.com/search/index.xml";
 		var params = "?key="+process.env.GR_KEY+"&q="+book;

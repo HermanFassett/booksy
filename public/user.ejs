@@ -13,6 +13,9 @@
         <h1 class="animated zoomIn text-center"><%=name%></h1>
       </div>
     </div>
+    <% if (button) { %>
+      <a href="/add" class="btn btn-primary">View/Add Books</a>
+    <% } %>
   </div>
   <div class="container">
     <% include /partials/footer %>

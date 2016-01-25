@@ -6,12 +6,13 @@ var path = process.cwd();
 function UserHandler () {
 	var apiUrl = path + '/api/:id';
 	this.getUser = function (req, res) {
-		var name = req.params.name;
-		if (!req.params.name) name = req.user.profile.name;
+		var button = false, name = req.params.name;
+		if (!req.params.name) {name = req.user.profile.name, button = true};
 		Users.findOne({ 'profile.name' : name }, function(err, result) {
 			res.render(path + '/public/user.ejs', {
 				name: result.profile.name,
-				img: result.profile.picture
+				img: result.profile.picture,
+				button: button
 			});
 		});
 	};
