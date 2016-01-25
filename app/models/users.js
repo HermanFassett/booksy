@@ -5,12 +5,15 @@ var mongoose = require('mongoose');
 var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   books: Array,
+  trade: Array,
+  requests: Array,
   password: String,
   google: String,
   tokens: Array,
   location: String,
   profile: {
     name: { type: String, default: '' },
+    fullname: String,
     picture: { type: String, default: '' }
   },
 });

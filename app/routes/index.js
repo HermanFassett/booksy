@@ -42,10 +42,16 @@ module.exports = function (app, passport) {
 
 	// View books
 	app.route('/books').get(bookHandler.getBooks).post(bookHandler.getBooks);
+	app.route('/books/trade').post(bookHandler.tradeBooks);
 
 	// Add books
 	app.route('/add').get(bookHandler.addBooks).post(bookHandler.addBook);
+	app.route('/add/delete').post(bookHandler.removeBook);
 
+	// Change settings
+	app.route('/settings').get(function(req, res) {
+		res.render(path + '/public/settings.ejs');
+	}).post(userHandler.changeSettings);
 	// Logged in user
 	app.route('/api/:id').get(isLoggedIn, function (req, res) {
 		res.json(req.user);

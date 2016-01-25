@@ -7,12 +7,19 @@ function UserHandler () {
 	var apiUrl = path + '/api/:id';
 	this.getUser = function (req, res) {
 		var button = false, name = req.params.name;
-		if (!req.params.name) {name = req.user.profile.name, button = true};
+		if (!req.params.name) {
+			name = req.user.profile.name, button = true;
+		};
 		Users.findOne({ 'profile.name' : name }, function(err, result) {
 			res.render(path + '/public/user.ejs', {
 				name: result.profile.name,
 				img: result.profile.picture,
-				button: button
+				button: button,
+				books: (result.books.length > 0) ? result.books : false,
+				trade: (result.trade.length > 0) ? result.trade : false,
+				fullname: result.profile.fullname || "N/A",
+				location: result.location || "N/A",
+				requests: (result.requests.length > 0) ? result.requests : false
 			});
 		});
 	};
@@ -64,5 +71,19 @@ function UserHandler () {
 	    });
 	  });
 	};
+	this.changeSettings = function(req, res) {
+		if (!req.user) {
+			res.contentType('application/json');
+			var data = JSON.stringify('/login')
+			res.header('Content-Length', data.length);
+			return res.end(data);
+		}
+		Users.findOneAndUpdate({"profile.name": req.user.profile.name},
+			{$set: {location:req.body.location, "profile.fullname": req.body.name}},
+			function(err, result) {
+				res.redirect("/profile");
+			}
+		);
+	}
 }
 module.exports = UserHandler;

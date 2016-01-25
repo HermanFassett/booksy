@@ -17,11 +17,16 @@
     </div>
     <% if (books) { %>
       <% for (var i = 0; i < books.length; i++) { %>
-        <div class="book">
-          <h1><%=books[i].title%></h1>
-          <img src='<%=books[i].image_url%>' class="center"/>
-          <h2><%=books[i].author%>
-        </div>
+        <form name="form<%=i%>" method="post" action="/add/delete">
+          <input type="hidden" name="title" value="<%=books[i].title%>"/>
+          <input type="hidden" name="author" value="<%=books[i].author%>"/>
+          <div class="book">
+            <i class="fa fa-times remove" data-toggle="tooltip" title="Remove" onclick="form<%=i%>.submit()"></i>
+            <h1><%=books[i].title%></h1>
+            <img src='<%=books[i].image_url%>' class="center"/>
+            <h2><%=books[i].author%></h2>
+          </div>
+        </form>
       <% } %>
     <% } %>
   </div>
@@ -30,5 +35,10 @@
   </div>
   <% include /partials/scripts %>
   <script src="/controllers/bookController.client.js"></script>
+  <script>
+  $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+  });
+  </script>
 </body>
 </html>

@@ -11,10 +11,49 @@
       <div class="row">
         <img src="<%=img%>"class="avatar">
         <h1 class="animated zoomIn text-center"><%=name%></h1>
+        <h2>Full name: <%=fullname%></h2>
+        <h3>Location: <%=location%>
+        </h3>
+        <% if (button) { %>
+          <a href="/settings" class="btn btn-primary">Change Settings</a>
+        <% } %>
       </div>
     </div>
     <% if (button) { %>
-      <a href="/add" class="btn btn-primary">View/Add Books</a>
+      <% if (requests) { %>
+        <h1>Trade Requests!</h1>
+        <% for (var i = 0; i < requests.length; i++) { %>
+          <div class="row">User <a href="/user/<%=requests[i].requester%>"><%=requests[i].requester%></a> wants to trade for <%=requests[i].title%>
+            <a href="/accept" class="btn btn-success">Accept</a>
+            <a href="/decline" class="btn btn-danger">Decline</a>
+          </div>
+        <% } %>
+      <% } %>
+      <a href="/add" class="btn btn-primary">Add Books</a>
+      <% if (books) { %>
+        <h1>Books</h1>
+        <% for (var i = 0; i < books.length; i++) { %>
+          <div class="book">
+            <h1><%=books[i].title%></h1>
+            <img src='<%=books[i].image_url%>' class="center"/>
+            <h2><%=books[i].author%></h2>
+          </div>
+        <% } %>
+      <% } %>
+      <% if (trade) { %>
+        <br style="clear:both"/>
+        <hr/>
+        <a href="/books" class="btn btn-primary">Find Books</a>
+        <h1>Trading</h1>
+        <% for (var i = 0; i < trade.length; i++) { %>
+          <div class="book">
+            <h1><%=trade[i].title%></h1>
+            <img src='<%=trade[i].image_url%>' class="center"/>
+            <h2><%=trade[i].author%></h2>
+            <h2>Owned by <a href="/user/<%=trade[i].owner%>"><%=trade[i].owner%></a></h2>
+          </div>
+        <% } %>
+      <% } %>
     <% } %>
   </div>
   <div class="container">

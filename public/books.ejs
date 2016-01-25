@@ -18,11 +18,19 @@
     </div>
     <% if (books) { %>
       <% for (var i = 0; i < books.length; i++) { %>
-        <div class="book">
-          <h1><%=books[i].title%></h1>
-          <img src='<%=books[i].image_url%>' class="center"/>
-          <h2><%=books[i].author%>
-        </div>
+        <form name="form<%=i%>" method="post" action="/books/trade">
+          <input type="hidden" name="title" value="<%=books[i].title%>"/>
+          <input type="hidden" name="author" value="<%=books[i].author%>"/>
+          <input type="hidden" name="owner" value="<%=books[i].owner%>"/>
+          <input type="hidden" name="image_url" value="<%=books[i].image_url%>"/>
+          <div class="book">
+            <i class="fa fa-refresh trade" data-toggle="tooltip" title="Trade" onclick="form<%=i%>.submit()"> </i>
+            <h1><%=books[i].title%></h1>
+            <img src='<%=books[i].image_url%>' class="center"/>
+            <h2><%=books[i].author%></h2>
+            <h2>Owned by <a href="/user/<%=books[i].owner%>"><%=books[i].owner%></a></h2>
+          </div>
+        </form>
       <% } %>
     <% } %>
   </div>
@@ -31,5 +39,10 @@
   </div>
   <% include /partials/scripts %>
   <script src="/controllers/bookController.client.js"></script>
+  <script>
+  $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+  });
+  </script>
 </body>
 </html>
